@@ -50,6 +50,17 @@ For Linux
 sudo apt-get update
 sudo apt-get install portaudio19-dev python-dev ffmpeg
 ```
+For Windows
+
+> **Note**: Windows support is experimental. Some features may have limited functionality.
+```powershell
+choco install ffmpeg portaudio
+```
+
+Alternative using winget:
+```powershell
+winget install ffmpeg
+```
 
 ### Obtain an OpenMind API Key
 
