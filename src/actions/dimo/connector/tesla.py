@@ -10,6 +10,9 @@ from actions.base import ActionConfig, ActionConnector
 from actions.dimo.interface import TeslaInput
 from providers.io_provider import IOProvider
 
+# Default timeout for HTTP requests (in seconds)
+DEFAULT_HTTP_TIMEOUT = 10
+
 
 class DIMOTeslaConfig(ActionConfig):
     """
@@ -134,53 +137,79 @@ class DIMOTeslaConnector(ActionConnector[DIMOTeslaConfig, TeslaInput]):
                         f"DIMOTeslaConnector: Error getting DIMO vehicle jwt: {e}"
                     )
                     self.vehicle_jwt = None
-                    return None
+                    return
 
             if self.vehicle_jwt is not None:
                 if output_interface.action == "lock doors":
                     url = f"{self.base_url}/{self.token_id}/commands/doors/lock"
-                    response = requests.post(
-                        url, headers={"Authorization": f"Bearer {self.vehicle_jwt}"}
-                    )
-                    if response.status_code == 200:
-                        logging.info("DIMO Tesla: Door locked")
-                    else:
-                        logging.error(
-                            f"Error locking door: {response.status_code} {response.text}"
+                    try:
+                        response = requests.post(
+                            url,
+                            headers={"Authorization": f"Bearer {self.vehicle_jwt}"},
+                            timeout=DEFAULT_HTTP_TIMEOUT,
                         )
+                        if response.status_code == 200:
+                            logging.info("DIMO Tesla: Door locked")
+                        else:
+                            logging.error(
+                                f"Error locking door: {response.status_code} {response.text}"
+                            )
+                    except requests.exceptions.RequestException as e:
+                        logging.error(f"DIMOTeslaConnector: Failed to lock doors: {e}")
+
                 elif output_interface.action == "unlock doors":
                     url = f"{self.base_url}/{self.token_id}/commands/doors/unlock"
-                    response = requests.post(
-                        url, headers={"Authorization": f"Bearer {self.vehicle_jwt}"}
-                    )
-                    if response.status_code == 200:
-                        logging.info("DIMO Tesla: Door unlocked")
-                    else:
-                        logging.error(
-                            f"Error unlocking door: {response.status_code} {response.text}"
+                    try:
+                        response = requests.post(
+                            url,
+                            headers={"Authorization": f"Bearer {self.vehicle_jwt}"},
+                            timeout=DEFAULT_HTTP_TIMEOUT,
                         )
+                        if response.status_code == 200:
+                            logging.info("DIMO Tesla: Door unlocked")
+                        else:
+                            logging.error(
+                                f"Error unlocking door: {response.status_code} {response.text}"
+                            )
+                    except requests.exceptions.RequestException as e:
+                        logging.error(
+                            f"DIMOTeslaConnector: Failed to unlock doors: {e}"
+                        )
+
                 elif output_interface.action == "open frunk":
                     url = f"{self.base_url}/{self.token_id}/commands/frunk/open"
-                    response = requests.post(
-                        url, headers={"Authorization": f"Bearer {self.vehicle_jwt}"}
-                    )
-                    if response.status_code == 200:
-                        logging.info("DIMO Tesla: Frunk opened")
-                    else:
-                        logging.error(
-                            f"Error opening frunk: {response.status_code} {response.text}"
+                    try:
+                        response = requests.post(
+                            url,
+                            headers={"Authorization": f"Bearer {self.vehicle_jwt}"},
+                            timeout=DEFAULT_HTTP_TIMEOUT,
                         )
+                        if response.status_code == 200:
+                            logging.info("DIMO Tesla: Frunk opened")
+                        else:
+                            logging.error(
+                                f"Error opening frunk: {response.status_code} {response.text}"
+                            )
+                    except requests.exceptions.RequestException as e:
+                        logging.error(f"DIMOTeslaConnector: Failed to open frunk: {e}")
+
                 elif output_interface.action == "open trunk":
                     url = f"{self.base_url}/{self.token_id}/commands/trunk/open"
-                    response = requests.post(
-                        url, headers={"Authorization": f"Bearer {self.vehicle_jwt}"}
-                    )
-                    if response.status_code == 200:
-                        logging.info("DIMO Tesla: Trunk opened")
-                    else:
-                        logging.error(
-                            f"Error opening trunk: {response.status_code} {response.text}"
+                    try:
+                        response = requests.post(
+                            url,
+                            headers={"Authorization": f"Bearer {self.vehicle_jwt}"},
+                            timeout=DEFAULT_HTTP_TIMEOUT,
                         )
+                        if response.status_code == 200:
+                            logging.info("DIMO Tesla: Trunk opened")
+                        else:
+                            logging.error(
+                                f"Error opening trunk: {response.status_code} {response.text}"
+                            )
+                    except requests.exceptions.RequestException as e:
+                        logging.error(f"DIMOTeslaConnector: Failed to open trunk: {e}")
+
                 elif output_interface.action == "idle":
                     logging.info("DIMO Tesla: Idle")
                 else:
