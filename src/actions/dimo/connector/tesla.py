@@ -172,9 +172,7 @@ class DIMOTeslaConnector(ActionConnector[DIMOTeslaConfig, TeslaInput]):
                                 f"Error unlocking door: {response.status_code} {response.text}"
                             )
                     except requests.exceptions.RequestException as e:
-                        logging.error(
-                            f"DIMOTeslaConnector: Failed to unlock doors: {e}"
-                        )
+                        logging.error(f"DIMOTeslaConnector: Failed to unlock doors: {e}")
 
                 elif output_interface.action == "open frunk":
                     url = f"{self.base_url}/{self.token_id}/commands/frunk/open"
