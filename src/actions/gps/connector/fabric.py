@@ -12,7 +12,7 @@ class GPSFabricConfig(ActionConfig):
     """
     Configuration for GPS Fabric connector.
 
-    Parameters:
+    Parameters
     ----------
     fabric_endpoint : str
         The endpoint URL for the Fabric network.
@@ -90,7 +90,11 @@ class GPSFabricConnector(ActionConnector[GPSFabricConfig, GPSInput]):
                     "jsonrpc": "2.0",
                 },
                 headers={"Content-Type": "application/json"},
+fix/gps-fabric-http-timeout
                 timeout=10,  # ← ADD THIS LINE!
+
+                timeout=10,
+main
             )
             response = share_status_response.json()
             if "result" in response and response["result"]:
