@@ -18,7 +18,7 @@ class DIMOTeslaConfig(ActionConfig):
     """
     Configuration for DIMO Tesla connector.
 
-    Parameters:
+    Parameters
     ----------
     client_id : Optional[str]
         DIMO client ID.
