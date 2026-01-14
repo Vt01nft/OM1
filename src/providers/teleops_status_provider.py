@@ -249,10 +249,10 @@ class TeleopsStatusProvider:
                 logging.error(
                     f"Failed to get status: {request.status_code} - {request.text}"
                 )
-                return {}
         except requests.exceptions.RequestException as e:
             logging.error(f"TeleopsStatusProvider: Error getting status: {e}")
-            return {}
+
+        return {}
 
     def _share_status_worker(self, status: TeleopsStatus):
         """
