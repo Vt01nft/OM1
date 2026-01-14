@@ -1,4 +1,4 @@
-import logging
+﻿import logging
 from typing import Any, Dict
 
 import aiohttp
@@ -31,7 +31,10 @@ async def start_nav2_hook(context: Dict[str, Any]):
             ) as response:
 
                 if response.status == 200:
-                    result = await response.json()
+                    try:
+                        result = await response.json()
+                    except Exception as _:
+                        result = {"message": "Success"}
                     logging.info(
                         f"Nav2 started successfully: {result.get('message', 'Success')}"
                     )
@@ -81,7 +84,10 @@ async def stop_nav2_hook(context: Dict[str, Any]):
             ) as response:
 
                 if response.status == 200:
-                    result = await response.json()
+                    try:
+                        result = await response.json()
+                    except Exception as _:
+                        result = {"message": "Success"}
                     logging.info(
                         f"Nav2 started successfully: {result.get('message', 'Success')}"
                     )
