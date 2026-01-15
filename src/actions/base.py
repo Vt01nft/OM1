@@ -88,7 +88,7 @@ class ActionConnector(ABC, T.Generic[CT, OT]):
         Parameters
         ----------
         output_interface : OT
-            The input protocol containing the action details.
+            The output protocol containing the action details.
         """
         pass
 
