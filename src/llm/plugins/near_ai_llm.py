@@ -126,7 +126,7 @@ class NearAILLM(LLM[R]):
                 actions = convert_function_calls_to_actions(function_call_data)
 
                 result = CortexOutputModel(actions=actions)
-                logging.info(f"OpenAI LLM function call output: {result}")
+                logging.info(f"NearAI LLM function call output: {result}")
                 return T.cast(R, result)
 
             return None
