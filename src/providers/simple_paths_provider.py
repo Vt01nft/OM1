@@ -28,7 +28,7 @@ def simple_paths_processor(
     control_queue : mp.Queue
         Queue for sending control commands.
     """
-    setup_logging("rplidar_processor", logging_config=logging_config)
+    setup_logging("simple_paths_processor", logging_config=logging_config)
 
     def paths_callback(msg: zenoh.Sample):
         """
