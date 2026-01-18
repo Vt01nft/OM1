@@ -1,0 +1,12 @@
+[
+  {
+    "timestamp": "2026-01-18T15:41:32.083522",
+    "amount": 0.01,
+    "amount_usd": 1.4237,
+    "recipient": "Bob",
+    "recipient_address": "5BZWY6XWPxuWFxs2jagkmUkCoBWmJ6c4YEArr83hYBWk",
+    "signature": "4bfCu2k4edtuV1W8ZguGBtkfWBmCP7tmU4Fvp6425XUono7s7TTLCUZUteuqNy1XyFNXnuqFUWb1EFXr7spF8QqH",
+    "explorer_url": "https://explorer.solana.com/tx/4bfCu2k4edtuV1W8ZguGBtkfWBmCP7tmU4Fvp6425XUono7s7TTLCUZUteuqNy1XyFNXnuqFUWb1EFXr7spF8QqH?cluster=devnet",
+    "status": "success"
+  }
+]
