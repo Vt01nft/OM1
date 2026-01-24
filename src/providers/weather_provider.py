@@ -155,10 +155,14 @@ class WeatherProvider:
 
         return {
             "location": (
-                area_name[0].get("value", "Unknown") if area_name else "Unknown"
+                area_name[0].get("value", "Unknown")
+                if area_name
+                else "Unknown"
             ),
             "country": (
-                country_name[0].get("value", "Unknown") if country_name else "Unknown"
+                country_name[0].get("value", "Unknown")
+                if country_name
+                else "Unknown"
             ),
             "temperature_c": self._safe_int(current.get("temp_C", 0)),
             "temperature_f": self._safe_int(current.get("temp_F", 32)),
@@ -166,7 +170,9 @@ class WeatherProvider:
             "feels_like_f": self._safe_int(current.get("FeelsLikeF", 32)),
             "humidity": self._safe_int(current.get("humidity", 0)),
             "condition": (
-                weather_desc[0].get("value", "Unknown") if weather_desc else "Unknown"
+                weather_desc[0].get("value", "Unknown")
+                if weather_desc
+                else "Unknown"
             ),
             "wind_speed_kmh": self._safe_int(current.get("windspeedKmph", 0)),
             "wind_speed_mph": self._safe_int(current.get("windspeedMiles", 0)),
