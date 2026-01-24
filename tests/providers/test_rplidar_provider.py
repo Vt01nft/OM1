@@ -149,7 +149,9 @@ class TestRPLidarConfig:
         """Test RPLidarConfig with all custom values."""
         from providers.rplidar_provider import RPLidarConfig
 
-        config = RPLidarConfig(max_buf_meas=50, min_len=10, max_distance_mm=8000)
+        config = RPLidarConfig(
+            max_buf_meas=50, min_len=10, max_distance_mm=8000
+        )
         assert config.max_buf_meas == 50
         assert config.min_len == 10
         assert config.max_distance_mm == 8000
@@ -592,7 +594,9 @@ class TestRPLidarProviderPathUtilities:
         from providers.rplidar_provider import RPLidarProvider
 
         provider = RPLidarProvider()
-        path = provider._create_straight_path_from_angle(0, length=1.0, num_points=10)
+        path = provider._create_straight_path_from_angle(
+            0, length=1.0, num_points=10
+        )
         assert path.shape == (2, 10)
 
     def test_create_path_zero_degrees_x_starts_at_zero(self):
@@ -600,7 +604,9 @@ class TestRPLidarProviderPathUtilities:
         from providers.rplidar_provider import RPLidarProvider
 
         provider = RPLidarProvider()
-        path = provider._create_straight_path_from_angle(0, length=1.0, num_points=10)
+        path = provider._create_straight_path_from_angle(
+            0, length=1.0, num_points=10
+        )
         assert path[0][0] == pytest.approx(0.0, abs=1e-10)
 
     def test_create_path_zero_degrees_y_ends_at_one(self):
@@ -608,7 +614,9 @@ class TestRPLidarProviderPathUtilities:
         from providers.rplidar_provider import RPLidarProvider
 
         provider = RPLidarProvider()
-        path = provider._create_straight_path_from_angle(0, length=1.0, num_points=10)
+        path = provider._create_straight_path_from_angle(
+            0, length=1.0, num_points=10
+        )
         assert path[1][-1] == pytest.approx(1.0, abs=1e-10)
 
     def test_create_path_90_degrees_x_ends_at_one(self):
@@ -616,7 +624,9 @@ class TestRPLidarProviderPathUtilities:
         from providers.rplidar_provider import RPLidarProvider
 
         provider = RPLidarProvider()
-        path = provider._create_straight_path_from_angle(90, length=1.0, num_points=10)
+        path = provider._create_straight_path_from_angle(
+            90, length=1.0, num_points=10
+        )
         assert path[0][-1] == pytest.approx(1.0, abs=1e-10)
 
     def test_create_path_90_degrees_y_ends_near_zero(self):
@@ -624,7 +634,9 @@ class TestRPLidarProviderPathUtilities:
         from providers.rplidar_provider import RPLidarProvider
 
         provider = RPLidarProvider()
-        path = provider._create_straight_path_from_angle(90, length=1.0, num_points=10)
+        path = provider._create_straight_path_from_angle(
+            90, length=1.0, num_points=10
+        )
         assert path[1][-1] == pytest.approx(0.0, abs=1e-10)
 
     def test_create_path_180_degrees_y_ends_negative(self):
@@ -632,7 +644,9 @@ class TestRPLidarProviderPathUtilities:
         from providers.rplidar_provider import RPLidarProvider
 
         provider = RPLidarProvider()
-        path = provider._create_straight_path_from_angle(180, length=1.0, num_points=10)
+        path = provider._create_straight_path_from_angle(
+            180, length=1.0, num_points=10
+        )
         assert path[1][-1] == pytest.approx(-1.0, abs=1e-10)
 
     def test_initialize_paths_returns_list(self):
