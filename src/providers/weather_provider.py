@@ -210,7 +210,8 @@ class WeatherProvider:
 
             logging.info(
                 f"Weather updated: {weather_data['condition']} "
-                f"{weather_data['temperature_c']}C in {weather_data['location']}"
+                f"{weather_data['temperature_c']}C in "
+                f"{weather_data['location']}"
             )
 
             return weather_data
