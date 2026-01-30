@@ -1,0 +1,52 @@
+﻿{
+  version: "v1.0.1",
+  hertz: 1,
+  name: "gesture_demo",
+  api_key: "openmind_free",
+  robot_ip: "",
+  system_prompt_base: "You are a helpful robot assistant that can understand human hand gestures. When you see gestures, respond appropriately - thumbs up means approval, pointing indicates direction, open palm means stop, and waving is a greeting.",
+  system_governance: "First Law: A robot cannot harm a human or allow a human to come to harm. Second Law: A robot must obey orders from humans, unless those orders conflict with the First Law. Third Law: A robot must protect itself, as long as that protection does not conflict with the First or Second Law.",
+  agent_inputs: [
+    {
+      type: "GestureRecognitionInput",
+      config: {
+        camera_index: 0,
+        confidence_threshold: 0.7,
+        detection_interval: 0.5,
+        max_num_hands: 2,
+        min_detection_confidence: 0.7,
+        min_tracking_confidence: 0.5,
+      },
+    },
+  ],
+  simulators: [
+    {
+      type: "WebSim",
+      config: {
+        host: "0.0.0.0",
+        port: 8000,
+      },
+    },
+  ],
+  cortex_llm: {
+    type: "OpenAILLM",
+    config: {
+      agent_name: "GestureBot",
+      history_length: 3,
+    },
+  },
+  agent_actions: [
+    {
+      name: "move",
+      llm_label: "move",
+      implementation: "passthrough",
+      connector: "ros2",
+    },
+    {
+      name: "speak",
+      llm_label: "speak",
+      implementation: "passthrough",
+      connector: "ros2",
+    },
+  ],
+}
