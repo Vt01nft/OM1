@@ -13,8 +13,8 @@ import pytest
 import requests
 
 # These imports assume the structure from the codebase
-from actions.dimo.connector.tesla import DIMOTeslaConfig, DIMOTeslaConnector
-from actions.dimo.interface import TeslaInput
+from actions.tesla_dimo.connector.tesla import DIMOTeslaConfig, DIMOTeslaConnector
+from actions.tesla_dimo.interface import TeslaAction, TeslaInput
 
 
 class TestDIMOTeslaConnectorBugs:
@@ -71,7 +71,7 @@ class TestDIMOTeslaConnectorBugs:
 
             # Create connector and trigger an action
             connector = DIMOTeslaConnector(mock_config)
-            test_input = TeslaInput(action="lock doors")
+            test_input = TeslaInput(action=TeslaAction.LOCK_DOORS)
             await connector.connect(test_input)
 
             # Verify the bug: requests.post was called WITHOUT timeout
@@ -105,7 +105,7 @@ class TestDIMOTeslaConnectorBugs:
 
             # Create connector
             connector = DIMOTeslaConnector(mock_config)
-            test_input = TeslaInput(action="lock doors")
+            test_input = TeslaInput(action=TeslaAction.LOCK_DOORS)
 
             # BUG: This will raise an exception (proving bug exists)
             # After fix, this should NOT raise - error should be handled gracefully
@@ -130,7 +130,7 @@ class TestDIMOTeslaConnectorBugs:
 
             # Create connector
             connector = DIMOTeslaConnector(mock_config)
-            test_input = TeslaInput(action="unlock doors")
+            test_input = TeslaInput(action=TeslaAction.UNLOCK_DOORS)
 
             # BUG: This will raise an exception (proving bug exists)
             with pytest.raises(requests.exceptions.Timeout):
@@ -162,7 +162,7 @@ class TestDIMOTeslaConnectorBugs:
 
             for action in actions_to_test:
                 mock_post.reset_mock()
-                test_input = TeslaInput(action=action)
+                test_input = TeslaInput(action=TeslaAction.LOCK_DOORS)
                 await connector.connect(test_input)
 
                 # Verify bug exists for this action
@@ -227,7 +227,7 @@ class TestDIMOTeslaConnectorAfterFix:
             mock_post.return_value = mock_response
 
             connector = DIMOTeslaConnector(mock_config)
-            test_input = TeslaInput(action="lock doors")
+            test_input = TeslaInput(action=TeslaAction.LOCK_DOORS)
             await connector.connect(test_input)
 
             # After fix: timeout should be present
@@ -256,7 +256,7 @@ class TestDIMOTeslaConnectorAfterFix:
                 )
 
                 connector = DIMOTeslaConnector(mock_config)
-                test_input = TeslaInput(action="lock doors")
+                test_input = TeslaInput(action=TeslaAction.LOCK_DOORS)
 
                 # After fix: Should NOT raise - should handle gracefully
                 await connector.connect(test_input)
